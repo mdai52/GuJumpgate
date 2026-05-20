@@ -2,39 +2,49 @@
 
 一个也许能“真正解放双手”的全自动 GPT Plus 注册浏览器扩展。
 
-如果能帮上你，欢迎点个 Star⭐。
+如果这个项目能帮上你，欢迎点个 Star。
 
-目前Oauth风控严重，必跳add phone只推荐走无RT的JSON
-即选择导出至 本地CPA JSON 无RT
+> [!IMPORTANT]
+> 目前 OAuth 风控严重，基本必跳手机绑定，所以只推荐走生成无 RT 的 JSON。
+>
+> 在扩展内的账号接入策略中，请务必选择：`导出至 - SESSION JSON 导入`。
 
 ## 已实现能力
 
-1. 自动注册 Free 账号  
+1. **自动注册 Free 账号**
+
    借助 FlowPilot 项目实现 Free 账号的自动注册。
 
-2. PayPal 激活 Plus 全流程  
-   - 自动跳转
+2. **PayPal 激活 Plus 全流程**
+
    - 自动跳转 Stripe 长链接
    - 自动填写 Stripe 账单并跳转 PayPal
    - 自动填写 PayPal 账单并完成流程
 
-   已将此前发布的油猴脚本移植并整合进扩展。
+3. **Hotmail / Outlook 自动别名功能**
 
-3. Hotmail/Outlook自动别名
+4. **PayPal 号码池管理**
 
-4. PayPal号码池
+5. **自动 OAuth 回调到本地及各面板**
 
-4. 自动 OAuth 回调 到本地及各面板
    对 FlowPilot 原有回调流程做了调整和适配。
-5. 支持跳过OAuth，忽略RT生成只有AT的JSON文件到本地
+
+6. **支持跳过 OAuth**
+
+   忽略 RT，生成只有 AT 的 JSON 文件到本地。
 
 ## 前提要求
 
 1. 1 个带 API、且能连续正常接收 PayPal 验证码的 US `+1` 接码手机号
-2. 1 个或 N 个支持 `IMAP` 和 `Graph` 的 Outlook 邮箱 或者 自建Cloudflare Temp Email(edu前缀，如edu.openai.com才有试用资格)
+2. 1 个或 N 个支持 `IMAP` 和 `Graph` 的 Outlook 邮箱，或者自建 Cloudflare Temp Email
 3. 1 个或 N 个支持 GPT 注册的 JP 代理，用于批量轮询
-4. 1 个相对干净、支持 PayPal 注册的 US 代理 (干净就不会跳PAYPAL的注册滑块，账单页面的Captcha扩展已经设置了自动屏蔽)
-5. 1 个支持分流的代理工具(推荐Mihomo)
+4. 1 个相对干净、支持 PayPal 注册的 US 代理
+5. 1 个支持分流的代理工具，推荐 Mihomo
+
+> [!NOTE]
+> 自建 Cloudflare Temp Email 需要使用 `edu` 前缀，例如 `edu.openai.com`，才有试用资格。
+>
+> PayPal 注册代理越干净，越不容易触发 PayPal 注册滑块。账单页面的 Captcha 扩展已经设置了自动屏蔽。
 
 ## 测试环境
 
@@ -42,11 +52,11 @@
 - 浏览器：Chrome `148.0.7778.168`（64 位正式版），开启无痕模式
 - 网络环境：JP 万人骑代理轮询 + US 自建代理
 
-## 过程中遇到任何卡死的问题都可以停止，然后点击流程的各个节点进行重试，也可以选在旁边的小按钮跳过某个节点
+过程中遇到任何卡死的问题，都可以先停止，然后点击流程的各个节点进行重试，也可以选择旁边的小按钮跳过某个节点。
 
 ## 安装与使用
 
-先到本仓库的 [Releases](https://github.com/FoundZiGu/GuJumpgate/releases)  页面下载扩展压缩包并解压；
+先到本仓库的 [Releases](https://github.com/FoundZiGu/GuJumpgate/releases) 页面下载扩展压缩包并解压。
 
 ### 1. 打开扩展开发者模式
 
@@ -58,67 +68,91 @@
 
 选择“加载已解压的扩展程序”，然后选择刚才解压出的文件夹。
 
-![加载未打包的扩展程序](docs/images/github-readme-1779193443568.webp)
+![加载未打包的扩展程序](docs/images/readme-load-extension.webp)
 
 ### 3. 启用无痕权限
 
-在扩展详情页中勾选“在无痕模式下启用”，如果你使用`ZeroOmega` 同理。
+在扩展详情页中勾选“在无痕模式下启用”。如果你使用 `ZeroOmega`，同理也需要开启无痕权限。
 
-![启用扩展的无痕模式权限](docs/images/github-readme-1779193501755.webp)
+![启用扩展的无痕模式权限](docs/images/readme-incognito-permission.webp)
 
 ### 4. 配置代理分流
 
 在代理工具中配置注册、登录、PayPal 和 Stripe 的分流规则。
 
-你可以使用 Mihomo 等支持分流的代理工具，有什么、会什么就用什么。
-
-如果你使用的代理工具是mihomo(clash)，你可以将 [Releases](https://github.com/FoundZiGu/GuJumpgate/releases) 中的 "mihomo-yaml-prompt.md" 发给电脑上的claude code、codex、opencode等工具，让AI直接帮你修改分流配置。(推荐、方便)
-
-
-以下演示使用的代理工具是 [ZeroOmega](https://chromewebstore.google.com/detail/pfnededegaaopdmhkdmcofjmoldfiped?utm_source=item-share-cb)，(麻烦)
-
-![配置代理分流规则](docs/images/github-readme-1779192674770.webp)
-
-### 5. ZeroOmega 导入&配置分流规则 (如果你已经用提示词配置好了mihomo，这里就不用再设置ZeroOmega了)
-
-你可以选择直接导入我的 ZeroOmega 分流配置“ZeroOmegaOptions.bak”，但请注意：所有代理都只是示例值，需要自行修改。
-
-![导入 ZeroOmega 分流配置](docs/images/github-readme-1779192828324.webp)
-
-总之，分流规则核心就是：
+分流规则的核心是：
 
 - 注册走 JP
 - 支付走 US
 
-如果你的 CPA 部署在本地，还需要把 CPA 地址设置为直连。
+你可以使用 Mihomo 等支持分流的代理工具。有什么、会什么，就用什么。
 
-![代理直连与分流示例](docs/images/github-readme-1779192869062.webp)
+#### 方案一：使用 Mihomo
 
-### 6. 启动 Hotmail Helper
+如果你使用的是 Mihomo / Clash 系列代理工具，可以在 [Releases](https://github.com/FoundZiGu/GuJumpgate/releases) 下载 `mihomo-yaml-prompt.md`，把提示词发给电脑上的 Claude Code、Codex、OpenCode 等工具，让 AI 直接帮你修改分流配置。
 
-请注意本地json生成依赖本地助手，无论你是否使用hotmail/outlook邮箱，都请启动！
+![使用 Mihomo 提示词配置分流](docs/images/readme-mihomo-prompt.webp)
 
-运行解压目录内的 `start-hotmail-helper.bat`。
+#### 方案二：配置支付转换代理
+
+配置用于支付转换的代理，出口必须是 JP 代理。
+
+![配置支付转换代理](docs/images/readme-payment-proxy.webp)
+
+然后代理工具开启全局 US，或者配置好相应规则分流至 US。
+
+### 5. 启动 Hotmail Helper
+
+请注意：本地 JSON 生成导出依赖本地助手。无论你是否使用 Hotmail / Outlook 邮箱，都请启动。
+
+运行解压目录内的脚本：
+
+- Windows：`start-hotmail-helper.bat`
+- macOS：`start-hotmail-helper.command`
 
 ![运行 start-hotmail-helper 脚本](docs/images/github-readme-1779193024860.webp)
 
-### 7. 打开无痕浏览器并切换代理 (如果你已经用提示词配置好了mihomo，这里就不用再设置ZeroOmega了)
+### 6. 配置扩展参数
 
-启动无痕浏览器，ZeroOmega 选择 `auto switch`。(如果你已经用提示词配置好了mihomo，这里就不用再设置ZeroOmega了)
+在扩展中打开侧边栏，按你的环境配置参数。
 
-![在无痕窗口启用 Auto Switch](docs/images/github-readme-1779193731001.webp)
+#### 选择最终 JSON 导出到的平台
 
-### 8. 配置扩展参数 (选择导出至哪里)
+账号接入策略建议选择：`导出至 - SESSION JSON 导入`。
 
-![选择导出至本地 CPA JSON 无 RT](docs/images/github-readme-export-target-local-cpa-json-no-rt.png)
+![选择最终 JSON 导出平台](docs/images/readme-export-target.webp)
 
-目前只推荐这个导出方式，Oauth登录严重风控，几乎100%弹出验证手机号
+> [!WARNING]
+> OAuth 目前严重风控，要求绑定手机号，仅推荐使用 `导出至 - SESSION JSON 导入`。
 
-![配置扩展参数字段](docs/images/github-readme-extension-config-fields.png)
+#### JSON 类型说明
 
-在扩展中打开侧边栏，配置 、接码 API、PayPal 接码电话，并导入 Outlook 邮箱。
+- `OAuth`：导出的 JSON 有刷新令牌，反代工具能持续使用
+- `SESSION`：导出的 JSON 无刷新令牌，仅支持部分反代工具使用，例如 CPA / SUB2API；导出有效期大约 10 天，过期后需要重新获取
 
-### 9. 开始运行
+![选择账号接入策略](docs/images/readme-account-access-strategy.webp)
+
+#### 验证码接口
+
+填写可直接 `GET` 请求的 `http` / `https` 地址。
+
+![填写验证码接口](docs/images/readme-verification-url.webp)
+
+#### PAYPAL 接码电话
+
+填写 PayPal 接码电话，注意按扩展提示填写格式。
+
+![填写 PAYPAL 接码电话](docs/images/readme-paypal-phone.webp)
+
+#### 邮箱渠道
+
+选择对应的邮箱渠道。自建邮箱需使用 `edu` 前缀获得试用资格。
+
+![选择邮箱渠道](docs/images/readme-mail-provider.webp)
+
+然后填写或导入各自邮箱渠道所需的配置。
+
+### 7. 开始运行
 
 保存配置后即可开始运行。
 
@@ -134,10 +168,8 @@
 
 如果你分发本项目或其修改版本，请一并保留仓库中的 `LICENSE` 及相关来源说明文件。
 
-## 使用与发布提示
+## 使用提示
 
-- 发布你自己的二开版本前，建议先检查代码、默认配置与截图中是否包含真实账号、密钥、代理、手机号、邮箱、Cookie 或回调地址
-- 若你继续分发本项目或其修改版，请同步保留 `LICENSE` 与 `THIRD_PARTY_NOTICES.md`
 - 使用者应自行遵守目标平台服务条款、适用法律及其所在地区的监管要求
 
 ## 友情链接
