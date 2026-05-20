@@ -4,7 +4,7 @@
 
 如果能帮上你，欢迎点个 Star⭐。
 
-目前Oauth风控严重，只推荐走无RT的JSON
+目前Oauth风控严重，必跳add phone只推荐走无RT的JSON
 即选择导出至 本地CPA JSON 无RT
 
 ## 已实现能力
